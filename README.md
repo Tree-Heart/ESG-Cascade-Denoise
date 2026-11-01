@@ -1,5 +1,7 @@
 # ESG-Cascade-Denoise
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23851089.svg)](https://doi.org/10.5281/zenodo.23851089)
+
 This repository contains the analysis code and results for the preprint:
 "A Cascade Spatial-Temporal Denoising Strategy for Cardiac Artifact Removal in Spinal Cord Electrophysiology"
 
