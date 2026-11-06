@@ -17,7 +17,7 @@ RESULTS_DIR = os.path.join(BASE_DIR, 'results')
 # 第一部分：画箱线图 (Figure 1)
 # ==========================================
 print("正在读取并合并所有受试者数据...")
-all_csvs = Path(RESULTS_DIR).glob('batch_ri_results_*.csv')
+all_csvs = [f for f in Path(RESULTS_DIR).glob('batch_ri_results_*.csv') if '_median' not in f.stem]
 
 dfs = []
 for f in all_csvs:
@@ -64,7 +64,7 @@ plt.ylabel('Residual Index (RI) - Lower is Better', fontsize=14)
 plt.ylim(0, 0.5)
 plt.grid(axis='y', linestyle='--', alpha=0.6)
 plt.tight_layout()
-save_plot_path = os.path.join(RESULTS_DIR, 'Fig3_Ultimate_Comparison.png')
+save_plot_path = os.path.join(RESULTS_DIR, 'Fig1_Ultimate_Comparison.png')
 plt.savefig(save_plot_path)
 print(f"\n✅ 终极箱线图已保存到: {save_plot_path}")
 
