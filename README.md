@@ -1,6 +1,6 @@
 # ESG-Cascade-Denoise
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23851089.svg)](https://doi.org/10.5281/zenodo.23851089)
+[![DOI](https://zenodo.org/badge/1441398386.svg)](https://doi.org/10.5281/zenodo.23851088)
 [Read the preprint: A Cascade Spatial-Temporal Denoising Strategy](https://doi.org/10.5281/zenodo.23852433)
 
 This repository contains the analysis code and results for the preprint:
