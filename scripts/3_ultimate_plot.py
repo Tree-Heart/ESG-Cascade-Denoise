@@ -54,14 +54,14 @@ print(mdf.summary())
 plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
 plt.rcParams['axes.unicode_minus'] = False
 
-fig, ax = plt.subplots(figsize=(10, 7), dpi=300)
+fig, ax = plt.subplots(figsize=(10, 9), dpi=300)
 sns.boxplot(x='Method', y='RI', data=df_melted, palette="Set2", width=0.5, showfliers=False, ax=ax)
 sns.stripplot(x='Method', y='RI', data=df_melted, color="black", size=4, alpha=0.6, jitter=True, dodge=True, ax=ax)
 
 plt.title('Overall Residual Index (RI) Comparison\nAcross Subjects and Spinal Channels', fontsize=16, pad=15)
 plt.xlabel('Denoising Methods', fontsize=14)
 plt.ylabel('Residual Index (RI) - Lower is Better', fontsize=14)
-plt.ylim(0, 0.5)
+plt.ylim(0, 1.1)
 plt.grid(axis='y', linestyle='--', alpha=0.6)
 plt.tight_layout()
 save_plot_path = os.path.join(RESULTS_DIR, 'Fig1_Ultimate_Comparison.png')

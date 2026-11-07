@@ -6,7 +6,7 @@ import os
 fif_path = r'D:\BCI-invention-ZBL\data\sub-001-median\sub-001_clean.fif'
 tmin_sep, tmax_sep = 0.010, 0.060
 
-print("开始全通道 SEP 保留率计算...")
+print("开始全通道(除LM) SEP 保留率计算...")
 raw_filt = mne.io.read_raw_fif(fif_path, preload=True)
 raw_filt.info['bads'] = []
 raw_neural = raw_filt.copy().drop_channels(['ECG'])
@@ -94,13 +94,13 @@ df = pd.DataFrame(results)
 # 🌟 补上这两句，把明细数据存下来
 save_path = r'D:\BCI-invention-ZBL\results\all_channel_sep_retention.csv'
 df.to_csv(save_path, index=False)
-print(f"✅ 全通道明细表已保存至: {save_path}")
+print(f"✅ 全通道(除LM)明细表已保存至: {save_path}")
 
 # ==========================================
 # 4. 分层输出：全通道 vs ESG vs EEG
 # ==========================================
 # 1. 筛选出脊髓/边缘通道 (ESG)
-esg_df = df[df['Channel'].str.startswith(('S', 'L', 'AC', 'AL', 'IZ', 'SC'))]
+esg_df = df[df['Channel'].str.startswith(('S', 'L', 'AC', 'AL', 'IZ', 'SC')) & (df['Channel'] != 'LM')]
 
 # 2. 筛选出脑电通道 (EEG) —— 排除掉脊髓通道和其他非脑电通道
 eeg_df = df[~df['Channel'].isin(esg_df['Channel'])]

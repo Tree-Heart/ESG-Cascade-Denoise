@@ -10,8 +10,9 @@ csv_path = r'D:\BCI-invention-ZBL\results\all_channel_sep_retention.csv'
 df = pd.read_csv(csv_path)
 
 def get_group(ch):
+    if ch == 'LM': return 'Drop'
     if ch.startswith(('S', 'L', 'AC', 'AL', 'IZ', 'SC')): return 'ESG'
-    if ch in ['BreathBelt', 'ECG', 'EP', 'Biceps', 'Thumb', 'Toe', 'KneeM', 'Knee1', 'Knee2', 'Knee3', 'Knee4', 'LM']: return 'Drop'
+    if ch in ['BreathBelt', 'ECG', 'EP', 'Biceps', 'Thumb', 'Toe', 'KneeM', 'Knee1', 'Knee2', 'Knee3', 'Knee4']: return 'Drop'
     return 'EEG'
 
 df['Group'] = df['Channel'].apply(get_group)

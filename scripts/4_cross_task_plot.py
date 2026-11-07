@@ -59,7 +59,7 @@ df_melted['Method'] = df_melted['Method'].replace({
 plt.rcParams['font.sans-serif'] = ['Microsoft YaHei'] 
 plt.rcParams['axes.unicode_minus'] = False
 
-fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
+fig, ax = plt.subplots(figsize=(12, 10), dpi=300)
 
 sns.boxplot(x='Method', y='RI', data=df_melted, palette="Set2", width=0.5, 
             showfliers=False, ax=ax)
@@ -77,7 +77,7 @@ plt.title('Cross-Task Validation: Overall RI Comparison (3 Subjects, 2 Tasks, 23
 plt.xlabel('Denoising Methods', fontsize=14)
 plt.ylabel('Residual Index (RI) - Lower is Better', fontsize=14)
 
-plt.ylim(0, 0.6) 
+plt.ylim(0, 1.1)
 plt.grid(axis='y', linestyle='--', alpha=0.6)
 
 # 处理图例，自动去重
