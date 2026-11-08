@@ -1,6 +1,6 @@
 # ESG-Cascade-Denoise
 
-[Read the v3.0 preprint: Re-evaluating Cardiac Artifact Removal in Spinal Electrophysiology](https://doi.org/10.5281/zenodo.[Insert your new v3.0 DOI here])
+[Read the v3.0 preprint: Re-evaluating Cardiac Artifact Removal in Spinal Electrophysiology]
 
 This repository contains the complete analysis code and results for the manuscript:
 "Re-evaluating Cardiac Artifact Removal in Spinal Electrophysiology: A Clean Ground-Truth Evaluation Framework Reveals the Fundamental Deadlock of Linear Denoising"
