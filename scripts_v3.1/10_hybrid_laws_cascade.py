@@ -23,7 +23,7 @@ fif_path = os.path.join(BASE_DIR, 'data', 'sub-001-median', 'sub-001_clean.fif')
 results_dir = os.path.join(BASE_DIR, 'results_v3.1')
 os.makedirs(results_dir, exist_ok=True)
 
-csv_path = os.path.join(results_dir, 'v4_Hybrid_Laws_Exhaustive.csv')
+csv_path = os.path.join(results_dir, 'v3.1_Hybrid_Laws_Exhaustive.csv')
 
 def calc_ssim_1d(x, y):
     L = max(np.ptp(x), np.ptp(y), 1e-6)

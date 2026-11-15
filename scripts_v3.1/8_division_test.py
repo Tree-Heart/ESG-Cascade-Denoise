@@ -23,7 +23,7 @@ os.makedirs(results_dir, exist_ok=True)
 
 MODE = 'blind' 
 # 防断点续传误读旧文件，重命名
-csv_path = os.path.join(results_dir, f'v4_Division_{MODE}_normalized.csv')
+csv_path = os.path.join(results_dir, f'v3.1_Division_{MODE}_normalized.csv')
 sub_csv_path = os.path.join(results_dir, 'v3.1_Oracle_Exhaustive_60.csv')
 
 def calc_ssim_1d(x, y):
@@ -273,7 +273,7 @@ for row, combo in enumerate(test_combos):
             ax.legend(loc='upper right', fontsize=8)
 
 plt.tight_layout()
-save_path = os.path.join(results_dir, 'v4_Waveform_Check_MultiGrid.png')
+save_path = os.path.join(results_dir, 'v3.1_Waveform_Check_MultiGrid.png')
 plt.savefig(save_path, dpi=150)
 print(f"  多链快照已保存至 {save_path}")
 print(f"  👉 请打开图查看：\n"

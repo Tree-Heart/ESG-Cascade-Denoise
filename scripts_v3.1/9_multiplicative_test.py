@@ -1,6 +1,6 @@
 """
 9_multiplicative_test.py
-v4.0 乘性抑制测试：验证乘法逻辑（线性近似除法）能否打破死锁
+v3.1 乘性抑制测试：验证乘法逻辑（线性近似除法）能否打破死锁
 公式：factor = 1.0 - w * template (限制下限 0.2)
 """
 import mne
@@ -24,7 +24,7 @@ os.makedirs(results_dir, exist_ok=True)
 
 # 开启 Oracle 搜索
 MODE = 'oracle' 
-csv_path = os.path.join(results_dir, f'v4_Multiplicative_{MODE}.csv')
+csv_path = os.path.join(results_dir, f'v3.1_Multiplicative_{MODE}.csv')
 sub_csv_path = os.path.join(results_dir, 'v3.1_Oracle_Exhaustive_60.csv')
 
 def calc_ssim_1d(x, y):
@@ -271,7 +271,7 @@ for row, combo in enumerate(test_combos):
             ax.legend(loc='upper right', fontsize=8)
 
 plt.tight_layout()
-save_path = os.path.join(results_dir, 'v4_Mul_Waveform_Check_MultiGrid.png')
+save_path = os.path.join(results_dir, 'v3.1_Mul_Waveform_Check_MultiGrid.png')
 plt.savefig(save_path, dpi=150)
 print(f"  多链快照已保存至 {save_path}")
 
