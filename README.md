@@ -3,69 +3,71 @@
 [Read the v3.0 preprint: Re-evaluating Cardiac Artifact Removal in Spinal Electrophysiology]
 
 This repository contains the complete analysis code and results for the manuscript:
-**"Re-evaluating Cardiac Artifact Removal in Spinal Electrophysiology: A Clean Ground-Truth Evaluation Framework Reveals the Fundamental Deadlock of Linear Denoising"**
+**"The Inescapable Pareto Deadlock: An Exhaustive Evaluation of Additive and Multiplicative Linear Operations for Cardiac Artifact Removal in Spinal Electrophysiology" (v3.1)**
 
-This study systematically evaluates four linear denoising strategies (SSP, ATS, Cascade, and Slew-Rate) across 228 ESG channels, demonstrating a fundamental Pareto deadlock between artifact suppression (RI) and neural morphology preservation (CC_GT, SSIM) due to the spatio-temporal collinearity of ECG and SEPs.
+This study serves as the definitive exhaustive evaluation of the linear space in ESG denoising. By exploring all 60 additive (subtraction) cascades and 150 hybrid (multiplicative/divisive) cascades under Oracle calibration, we demonstrate that all linear arithmetic operations are fundamentally trapped in an unbreakable Pareto deadlock due to the spatio-temporal collinearity of ECG and SEPs. 
+
+Key findings include:
+1. Pure additive operations max out at artifact suppression (`CC_contaminated` = 0.326) but catastrophically destroy morphology (`SSIM_clean` = 0.18).
+2. Hybrid operations artificially inflate the Pearson correlation (`CC_contaminated` = 0.42) by exploiting localized phase alignments, but further destroy signal morphology (`SSIM_clean` plummets to 0.13) due to the mathematical singularity of the division operator.
 
 ## 1. Requirements
 Ensure you have Python 3.10+ installed. Install the required packages:
 
+```bash
 pip install -r requirements.txt
+```
 
 ## 2. Data Availability
-The raw data used in this study is publicly available on OpenNeuro (Dataset ds004388). Please download the required data and place them in the data/ directory.
+The raw data used in this study is publicly available on OpenNeuro (Dataset ds004388). Please download the required data and place them in the `data/` directory.
 
-For the Tibial task (run-02): Download data for sub-001, sub-012, and sub-018.
-For the Median task (run-03): Download data for sub-001, sub-009, and sub-029.
+For this v3.1 exhaustive evaluation, we primarily focus on the **sub-001-median** session to perform the 210-cascade permutation search due to computational constraints. 
 
 Expected directory structure:
-
+```text
 data/
-├── sub-001/
-│   └── sub-001_task-tibial_run-02_eeg.set
-├── sub-012/
-│   └── sub-012_task-tibial_run-02_eeg.set
-├── sub-018/
-│   └── sub-018_task-tibial_run-02_eeg.set
-├── sub-001-median/
-│   └── sub-001_task-median_run-03_eeg.set
-├── sub-009-median/
-│   └── sub-009_task-median_run-03_eeg.set
-└── sub-029-median/
-    └── sub-029_task-median_run-03_eeg.set
+└── sub-001-median/
+    └── sub-001_clean.fif
+```
+*(Note: You can easily extend the scripts to other subjects by modifying the `fif_path` variable).*
 
 ## 3. Usage
 
-### Part A: Preprocessing & Baseline (v2.1)
-Run the preprocessing and basic RI calculation scripts:
+### Part A: v3.1 Exhaustive Additive Cascades (60 Combinations)
+Run the Oracle calibration script to search all 60 subtraction cascades and evaluate dual-objective metrics (`CC_contaminated` and `SSIM_clean`).
 
-python scripts/v2.1_RI_analysis/1_preprocess.py
-python scripts/v2.1_RI_analysis/1_preprocess_median.py
-python scripts/v2.1_RI_analysis/2_batch_denoise.py
-python scripts/v2.1_RI_analysis/2_batch_denoise_median.py
-python scripts/v2.1_RI_analysis/3_ablation_reverse.py
+```bash
+python scripts_v3.1/7_all-60_cascade_oracle_math_new.py
+```
 
-### Part B: v3.0 Multi-Metric Evaluation & Pareto Frontier
-Run the new scripts to reproduce the core v3.0 results (Pseudo-GT construction, 7-metric evaluation, and the Pareto deadlock):
+### Part B: v3.1 Hybrid Operations (150 Combinations)
+Run the division and multiplication tests. These scripts expand the operator pool to include non-additive transformations, proving the "fidelity illusion".
 
-python scripts/v3.0_multimetric/all_subjects_multi_metric_eval.py
-python scripts/v3.0_multimetric/plot_metrics_boxplot.py
-python scripts/v3.0_multimetric/pareto_frontier.py
-python scripts/v3.0_multimetric/grid_0_to_1.py
+```bash
+python scripts_v3.1/8_division_test.py
+python scripts_v3.1/9_multiplicative_test.py
+python scripts_v3.1/10_hybrid_laws_cascade.py
+```
 
-Note: Ensure BASE_DIR in the v3.0 scripts points to your local data path.
+### Part C: Final Pareto Frontier Plotting
+Generate the ultimate Pareto frontier scatter plot and the waveform collapse comparison plots.
+
+```bash
+python scripts_v3.1/11_plot_final_deadlock.py
+```
 
 ## 4. Key Results and Outputs
-The output CSV files and figures will be saved in the results/ directory.
+The output CSV files and figures are saved in the `results_v3.1/` directory.
 
-Core v3.0 Outputs (n=228 ESG channels):
-- v3.0_All_228_ESG_Channels_Metrics.csv: The master data table containing all 7 metrics for all methods across 228 channels.
-- v3.0_All_228_Channels_Boxplot_Final.png: Figure 1 (Main text). Boxplots showing the distributions of RI, CC_GT, CC_WB, RE, SD, KR2, and SSIM.
-- Pareto_Frontier_Final.png: The Pareto curve showing the Gated Cascade strategy cannot break the SSP and ATS bounds.
-- Tradeoff_Line_0_to_1.png: The dual-Y axis plot demonstrating the continuous Pareto deadlock (SEP retention vs. RI).
-- Grid_0_to_1_Detailed.csv: The raw data driving the continuous trade-off analysis.
+### Main Text Figures:
+- **`v3.1_Final_Deadlock_Frontier.png`**: Figure 1 in the manuscript. The inescapable Pareto frontier across all 210 linear cascades, showing the "morphological wall" (SSIM = 0.5) that no linear method can breach.
+- **`v3.1_Mul_Waveform_Check_MultiGrid.png`**: Figure 2. Waveform-level evidence showing how multiplicative operators fail to remove artifacts or distort the envelope.
+- **`v3.1_Division_Waveform_Check_MultiGrid.png`**: Figure 3. Waveform-level evidence showing the abnormal localized amplification (waveform explosion) caused by the division operator's singularity.
 
-Supplementary / v2.1 Outputs:
-- all_channel_sep_retention.csv: Detailed SEP amplitude retention data per channel.
-- sep_retention_stats.csv: Statistical summary of SEP retention (EEG vs. ESG).
-- Fig3_Cross_Task_Validation.png: Cross-task RI comparison (Tibial vs. Median).
+### Raw Data Tables:
+- **`v3.1_Oracle_Exhaustive_60.csv`**: The complete metric data for the 60 pure subtraction cascades.
+- **`v3.1_Hybrid_Laws_Exhaustive.csv`**: The complete metric data for the 150 hybrid (subtraction + division + multiplication) cascades.
+
+---
+### Legacy (v3.0 Baseline)
+The `legacy/` folder contains the v3.0 baseline code and results (228-channel multi-metric evaluation), which demonstrated the initial Pareto deadlock among four representative linear methods. 
