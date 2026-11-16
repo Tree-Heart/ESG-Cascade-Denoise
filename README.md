@@ -62,7 +62,7 @@ The output CSV files and figures are saved in the `results_v3.1/` directory.
 ### Main Text Figures:
 - **`v3.1_Final_Deadlock_Frontier.png`**: Figure 1 in the manuscript. The inescapable Pareto frontier across all 210 linear cascades, showing the "morphological wall" (SSIM = 0.5) that no linear method can breach.
 - **`v3.1_Mul_Waveform_Check_MultiGrid.png`**: Figure 2. Waveform-level evidence showing how multiplicative operators fail to remove artifacts or distort the envelope.
-- **`v3.1_Division_Waveform_Check_MultiGrid.png`**: Figure 3. Waveform-level evidence showing the abnormal localized amplification (waveform explosion) caused by the division operator's singularity.
+- **`v3.1_Waveform_Check_MultiGrid.png`**: Figure 3. Waveform-level evidence showing the abnormal localized amplification (waveform explosion) caused by the division operator's singularity.
 
 ### Raw Data Tables:
 - **`v3.1_Oracle_Exhaustive_60.csv`**: The complete metric data for the 60 pure subtraction cascades.
